@@ -1,0 +1,67 @@
+POST http://localhost:3000/command
+Content-Type: application/json
+
+{
+  "command": "play black D4"
+}
+
+### top_moves
+POST http://localhost:3000/command
+Content-Type: application/json
+
+{
+  "command": "top_moves"
+}
+### estimate score
+POST http://localhost:3000/command
+Content-Type: application/json
+
+{
+  "command": "estimate_score"
+}
+### SHowBoard
+POST http://localhost:3000/command
+Content-Type: application/json
+
+{
+  "command": "showboard"
+}
+
+### Genmove w
+POST http://localhost:3000/command
+Content-Type: application/json
+
+{
+  "command": "genmove w"
+}
+
+### Genmove b
+POST http://localhost:3000/command
+Content-Type: application/json
+
+{
+  "command": "genmove b"
+}
+### clear board
+POST http://localhost:3000/command
+Content-Type: application/json
+
+{
+  "command": "clear_board"
+}
+### set board size to 9
+POST http://localhost:3000/command
+Content-Type: application/json
+
+{
+  "command": "boardsize 9"
+}
+###
+
+POST http://localhost:3000/command
+Content-Type: application/json
+
+{
+  "command": "final_score"
+}
+###
