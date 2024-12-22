@@ -25,7 +25,9 @@ const gnugoPool = createPool(
     acquireTimeoutMillis: 10000, // Time to wait for a process to become available
   }
 );
-
+app.get("/", (req, res) => {
+  res.send("gnu go");
+});
 app.post("/getBestPosition", async (req, res) => {
   const { initialStateMoveList, recentMoveList, size, color, level } = req.body;
 
