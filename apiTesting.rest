@@ -65,3 +65,11 @@ Content-Type: application/json
   "command": "final_score"
 }
 ###
+
+POST http://143.198.138.218:3000/command
+Content-Type: application/json
+
+{
+  "command": "showboard"
+}
+###

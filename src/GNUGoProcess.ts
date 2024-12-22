@@ -44,7 +44,7 @@ class GNUGoProcess {
     if (!this.isInitialized || !this.gnugoProcess) {
       return Promise.reject(new Error("GNUGo process is not initialized."));
     }
-
+    console.log(`command: ${command}`);
     const commandId = this.commandId++;
     return new Promise((resolve, reject) => {
       this.gnugoProcess!.once("response", (response: string) => {
