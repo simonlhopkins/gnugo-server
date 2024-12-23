@@ -12,19 +12,34 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const gnugoPool = createPool(
   {
-    create: () => Promise.resolve(new GNUGoProcess()),
+    create: () => {
+      console.log("creating new process");
+      return Promise.resolve(new GNUGoProcess());
+    },
     destroy: (gnugo) => {
+      console.log("destroying process");
       gnugo.cleanup();
       return Promise.resolve();
     },
   },
   {
     max: 5, // Maximum number of processes in the pool
-    min: 1, // Minimum number of processes to keep ready
+    min: 0, // Minimum number of processes to keep ready
     idleTimeoutMillis: 30000, // Time a process can remain idle before being closed
     acquireTimeoutMillis: 10000, // Time to wait for a process to become available
+    autostart: true,
+    evictionRunIntervalMillis: 1000,
   }
 );
+
+gnugoPool.on("factoryCreateError", (err) => {
+  console.error("Error creating GNUGo process:", err);
+});
+
+gnugoPool.on("factoryDestroyError", (err) => {
+  console.error("Error destroying GNUGo process:", err);
+});
+
 app.get("/", (req, res) => {
   res.send("gnu go");
 });
@@ -59,6 +74,7 @@ app.post("/getBestPosition", async (req, res) => {
   } finally {
     // Ensure the GNUGo process is killed after the response
     if (gnugo) {
+      console.log("releaseing gnugo process");
       // Release the process back to the pool
       gnugoPool.release(gnugo);
     }
