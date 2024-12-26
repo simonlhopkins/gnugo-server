@@ -8,7 +8,14 @@ class GNUGoProcess {
   constructor() {
     console.log("creating new GNUGo process...");
     try {
-      this.gnugoProcess = spawn("gnugo", ["--mode", "gtp"]);
+      this.gnugoProcess = spawn("gnugo", [
+        "--mode",
+        "gtp",
+        "--score",
+        "finish",
+        "--capture-all-dead",
+        "--chinese-rules",
+      ]);
 
       let responseBuffer = "";
 

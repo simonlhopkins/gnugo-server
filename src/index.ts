@@ -82,18 +82,19 @@ app.post("/getBestPosition", async (req, res) => {
 });
 
 app.post("/status", async (req, res) => {
-  const { moveList } = req.body;
+  const { moveList, size } = req.body;
 
   const gnugo = await gnugoPool.acquire();
   console.log(moveList);
   try {
     await gnugo.command(`clear_board`);
-    await gnugo.command(`boardsize ${9}`);
+    await gnugo.command(`boardsize ${size}`);
     for (let move of moveList) {
       await gnugo.command(move);
     }
     const board = await gnugo.command("showboard");
     console.log(board);
+
     const white = await gnugo.command("final_status_list white_territory");
     const black = await gnugo.command("final_status_list black_territory");
     const komi = await gnugo.command("get_komi");
